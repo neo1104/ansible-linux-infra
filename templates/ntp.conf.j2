@@ -13,8 +13,8 @@ restrict 192.168.11.1 mask 255.255.255.0 nomodify
 {{ sec_ntp_server_config }}
 
 #默认的伪ntp server配置，在ntp无法和上层ntp进行通讯时，将与自身进行时钟同步
-#server  127.127.1.0
-#fudge   127.127.1.0 stratum {{ ntp_stratum }}
+server  127.127.1.0
+fudge   127.127.1.0 stratum {{ ntp_stratum }}
 
 includefile /etc/ntp/crypto/pw
 keys /etc/ntp/keys
