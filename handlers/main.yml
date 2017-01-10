@@ -1,0 +1,6 @@
+---
+# handlers file for roles/linux-infra
+- name: restart ntp server
+  service:
+    name: ntpd
+    state: restarted

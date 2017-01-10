@@ -1,0 +1,13 @@
+---
+- name: install some base server
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: no
+  with_items:
+    - "@Development tools"
+    - epel-release
+    - ntp
+    - python34
+    - telnet
+    - "@chinese-support"

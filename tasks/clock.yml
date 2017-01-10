@@ -1,0 +1,64 @@
+---
+- name: config ZONE system time zone
+  lineinfile:
+    dest: /etc/sysconfig/clock
+    line: ZONE="{{ time_zone }}"
+    regexp: '^ZONE=.+$'
+    state: present
+
+- name: config UTC in /etc/sysconfig/clock
+  lineinfile:
+    dest: /etc/sysconfig/clock
+    line: "UTC=true"
+    regexp: '^UTC=.+$'
+    state: present
+
+- name: config ARC in /etc/sysconfig/clock
+  lineinfile:
+    dest: /etc/sysconfig/clock
+    line: "ARC=false"
+    regexp: '^ARC=false$'
+    state: present
+
+- name: copy zoneinfo file to /etc/localtime
+  copy:
+    remote_src: True
+    src: "/usr/share/zoneinfo/{{ time_state }}{{ time_city }}"
+    dest: /etc/localtime
+    owner: root
+    mode: 0644
+
+# 如果ntp server已经启动， 便无法使用ntpdate进行手工更新，所以这里需要忽略相关错误
+- name: update time
+  shell: "ntpdate {{ ntp_server }}"
+  ignore_errors: True
+
+- name: config /etc/sysconfig/ntpd
+  lineinfile:
+    dest: /etc/sysconfig/ntpd
+    line: SYNC_HWCLOCK=yes
+    regexp: "^SYNC_HWCLOCK$"
+    state: present
+  notify:
+    - restart ntp server
+
+- name: config ntp server
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    mode: 0644
+    owner: root
+  notify:
+    - restart ntp server
+
+- name: start ntp server
+  service:
+    name: ntpd
+    state: started
+
+- name: set TZ environment variable
+  lineinfile:
+    dest: /etc/profile
+    line: "export TZ=Asia/Shanghai"
+    regexp: '^export TZ=.+$'
+    state: present

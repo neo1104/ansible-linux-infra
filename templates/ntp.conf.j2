@@ -1,0 +1,20 @@
+#因為預設的 NTP Server 本身的時間計算是依據 BIOS 的晶片震盪週期頻率來計算的，但是這個數值與上層 Time Server 不見得會一致
+#所以 NTP 這個 daemon (ntpd) 會自動的去計算我們自己主機的頻率與上層 Time server 的頻率，並且將兩個頻率的誤差記錄下來
+#記錄下來的檔案就是在 driftfile 後面接的完整檔名當中
+driftfile /var/lib/ntp/drift
+
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 kod nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict -6 ::1
+restrict 192.168.0.1 255.255.0.0 nomodify
+
+{{ main_ntp_server_config }}
+{{ sec_ntp_server_config }}
+
+#默认的伪ntp server配置，在ntp无法和上层ntp进行通讯时，将与自身进行时钟同步,在有外部服务器的情况下，我们可以把它注释掉
+#server  127.127.1.0
+#fudge   127.127.1.0 stratum 10
+
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys

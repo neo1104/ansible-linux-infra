@@ -1,0 +1,14 @@
+---
+- name: set LANG environment varibale
+  lineinfile:
+    dest: /etc/sysconfig/i18n
+    line: LANG="en_US.UTF-8"
+    regexp: '^LANG=.+$'
+    state: present
+
+- name: set SUPPORTED environment variable
+  lineinfile:
+    dest: /etc/sysconfig/i18n
+    line: 'SUPPORTED="zh_CN.UTF-8:zh_CN:zh"'
+    regexp: '^SUPPORTED=.+$'
+    state: present

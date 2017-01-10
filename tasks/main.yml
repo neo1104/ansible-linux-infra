@@ -1,0 +1,26 @@
+---
+# tasks file for roles/linux-infra
+- name:  setting selinux to permissive
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: stop some none using server
+  service:
+    name: "{{ item }}"
+    state: stopped
+  with_items:
+    - cups
+    - iptables
+  ignore_errors: True
+
+- name: include sysctl setting
+  include: sysctl.yml
+- name: include limits setting
+  include: limits.yml
+- name: include server setting
+  include: server.yml
+- name: include clock setting
+  include: clock.yml
+- name: include language setting
+  include: language.yml
