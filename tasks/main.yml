@@ -1,5 +1,11 @@
 ---
 # tasks file for roles/linux-infra
+- nane: install libselinux-python
+  yum:
+    name: libselinux-python
+    state: present
+    update_cache: no
+
 - name:  setting selinux to permissive
   selinux:
     policy: targeted
