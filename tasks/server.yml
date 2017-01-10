@@ -8,6 +8,5 @@
     - "@Development tools"
     - epel-release
     - ntp
-    - python34
     - telnet
     - "@chinese-support"
