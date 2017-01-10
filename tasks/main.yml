@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/linux-infra
-- nane: install libselinux-python
+- name: install libselinux-python
   yum:
     name: libselinux-python
     state: present
