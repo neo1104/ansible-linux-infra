@@ -37,7 +37,7 @@
   lineinfile:
     dest: /etc/sysconfig/ntpd
     line: SYNC_HWCLOCK=yes
-    regexp: "^SYNC_HWCLOCK$"
+    regexp: "^SYNC_HWCLOCK=.+$"
     state: present
   notify:
     - restart ntp server
