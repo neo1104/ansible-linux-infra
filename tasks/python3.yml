@@ -1,0 +1,30 @@
+---
+- name: download python3 source xz compress tarball
+  uri:
+    url: "{{ python_download_path }}"
+    dest: "{{ tmp_dir }}/{{ python_source_tarball }}"
+    creates: "{{ tmp_dir }}/{{ python_source_tarball }}"
+
+- name: decompress python3 source tarball
+  shell: "tar Jxvf {{ python_source_tarball }}"
+  args:
+    chdir: "{{ tmp_dir }}"
+    creates: "{{ tmp_dir }}/{{ python_source_dir }}"
+
+- name: compile and install python3
+  shell: "./configure --prefix={{ python_install_dir }}  && make && make install && make clean"
+  args:
+    chdir: "{{ tmp_dir }}/{{ python_source_dir }}"
+    creates: "{{ python_install_dir }}"
+
+- name: copy python3 and pip3 to /usr/bin
+  copy:
+    src: "{{ python_install_dir }}/bin/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    remote_src: True
+    follow: yes
+    mode: 0755
+    owner: root
+  with_items:
+    - python3
+    - pip3

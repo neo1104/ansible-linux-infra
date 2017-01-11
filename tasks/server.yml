@@ -10,3 +10,7 @@
     - ntp
     - telnet
     - "@chinese-support"
+    - zlib-devel
+    - bzip2-devel
+    - openssl-devel
+    - ncurses-devel

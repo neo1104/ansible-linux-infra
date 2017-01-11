@@ -30,3 +30,5 @@
   include: clock.yml
 - name: include language setting
   include: language.yml
+- name: install python3
+  include: python3.yml
