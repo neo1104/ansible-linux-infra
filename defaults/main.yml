@@ -30,7 +30,7 @@ ntp_server_config_list: |
 python_version: 3.6.0
 python_source_dir: "Python-{{ python_version }}"
 python_source_tarball: "{{ python_source_dir }}.tar.xz"
-python_download_path: "https://www.python.org/ftp/python/3.6.0/{{ python_source_tarball }}"
+python_download_path: "https://www.python.org/ftp/python/{{ python_version }}/{{ python_source_tarball }}"
 python_install_dir: /usr/local/python3
 tmp_dir: /tmp
 
