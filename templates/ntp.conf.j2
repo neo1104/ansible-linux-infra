@@ -8,6 +8,7 @@ restrict -6 default kod nomodify notrap nopeer noquery
 restrict 127.0.0.1
 restrict -6 ::1
 restrict 192.168.11.1 mask 255.255.255.0 nomodify
+restrict 192.168.11.11  #允许局域网环境192.168.11.11 修改时间
 
 {{ ntp_server_config_list }}
 
