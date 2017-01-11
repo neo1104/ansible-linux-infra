@@ -18,10 +18,13 @@ time_state: Asia/
 time_city: Shanghai
 time_zone: "{{ time_state }}{{ time_city }}"
 
-ntp_server: ntp.api.bz
+ntp_server: 0.cn.pool.ntp.org
 ntp_stratum: 10
-main_ntp_server_config: server ntp.api.bz prefer
-sec_ntp_server_config: null
+ntp_server_config_list: |
+  server 0.cn.pool.ntp.org
+  server 1.cn.pool.ntp.org
+  server 2.cn.pool.ntp.org
+  server 3.cn.pool.ntp.org
 
 sysctl_tcp_param:
   - {name: net.ipv4.tcp_fin_timeout, value: "{{ tcp_fin_timeout }}" }
