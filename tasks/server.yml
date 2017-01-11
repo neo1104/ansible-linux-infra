@@ -9,6 +9,7 @@
     - epel-release
     - ntp
     - telnet
+    - wget
     - "@chinese-support"
     - zlib-devel
     - bzip2-devel
