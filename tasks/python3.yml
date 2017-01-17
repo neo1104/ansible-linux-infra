@@ -28,3 +28,12 @@
   with_items:
     - python3
     - pip3
+
+- name: install setuptools for python3
+  shell: pip3 install setuptools
+
+- name: set python3 bin dir to PATH environment
+  lineinfile:
+    dest: /etc/profile
+    line: "PATH={{ python_install_dir }}/bin:$PATH"
+    state: present
