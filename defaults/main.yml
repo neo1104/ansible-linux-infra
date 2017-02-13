@@ -11,7 +11,7 @@ tcp_max_syn_backlog: 8192
 tcp_max_tw_buckets: 5000
 
 nofile_limits: 65536
-nproc_limits: 10240
+nproc_limits: 16384
 
 
 time_state: Asia/
